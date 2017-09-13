@@ -30,8 +30,17 @@ namespace WeatherMicroservice
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+
+                var longString = context.Request.Query["long"].FirstOrDefault();
+                var latString = context.Request.Query["lat"].FirstOrDefault();
+
+                var latitude = latString.TryParse();
+                var longitude = longString.TryParse();
+                // await context.Response.WriteAsync("Hello World!");
+
+                await context.Response.WriteAsync($"Retrieving Weather for lat: {latitude}, long: {longitude}");
             });
+
         }
     }
 }
